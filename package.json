@@ -1,27 +1,30 @@
 {
-  "name": "glitch-hello-node",
-  "version": "0.1.0",
-  "description": "A simple Node app built on fastify, instantly up and running. Built to be remixed on Glitch.com.",
+  "name": "spotify-music-quiz",
+  "version": "1.0.0",
+  "description": "A fun interactive quiz game based on your Spotify music library.",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
-    "fastify": "^4.21.0",
-    "handlebars": "^4.7.8",
-    "@fastify/formbody": "^7.4.0",
-    "@fastify/static": "^6.10.2",
-    "@fastify/view": "^8.0.0"
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "request": "^2.88.2"
   },
   "engines": {
-    "node": "14.x"
+    "node": "16.x"
   },
   "repository": {
-    "url": "https://glitch.com/edit/#!/glitch-hello-node"
+    "type": "git",
+    "url": "https://github.com/your-username/spotify-music-quiz.git"
   },
-  "license": "MIT",
   "keywords": [
-    "node",
-    "glitch"
-  ]
+    "spotify",
+    "quiz",
+    "music",
+    "game",
+    "interactive"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
 }

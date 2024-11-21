@@ -1,119 +1,82 @@
-/**
- * This is the main Node.js server script for your project
- * Check out the two endpoints this back-end API provides in fastify.get and fastify.post below
- */
-
+const express = require("express");
+const request = require("request");
 const path = require("path");
+const querystring = require("querystring");
+require("dotenv").config();
 
-// Require the fastify framework and instantiate it
-const fastify = require("fastify")({
-  // Set this to true for detailed logging:
-  logger: false,
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+const redirect_uri =
+  process.env.REDIRECT_URI || `http://localhost:${PORT}/callback`;
+
+app.use(express.static(path.join(__dirname, "public")));
+
+app.get("/login", (req, res) => {
+  const scope = "user-read-private user-read-email user-library-read";
+  const spotifyAuthURL =
+    "https://accounts.spotify.com/authorize?" +
+    querystring.stringify({
+      response_type: "code",
+      client_id: process.env.CLIENT_ID,
+      scope: scope,
+      redirect_uri,
+    });
+  res.redirect(spotifyAuthURL);
 });
 
-// ADD FAVORITES ARRAY VARIABLE FROM TODO HERE
+app.get("/callback", (req, res) => {
+  const code = req.query.code || null;
 
-// Setup our static files
-fastify.register(require("@fastify/static"), {
-  root: path.join(__dirname, "public"),
-  prefix: "/", // optional: default '/'
-});
+  const authOptions = {
+    url: "https://accounts.spotify.com/api/token",
+    form: {
+      code: code,
+      redirect_uri,
+      grant_type: "authorization_code",
+    },
+    headers: {
+      Authorization:
+        "Basic " +
+        Buffer.from(
+          process.env.CLIENT_ID + ":" + process.env.CLIENT_SECRET
+        ).toString("base64"),
+    },
+    json: true,
+  };
 
-// Formbody lets us parse incoming forms
-fastify.register(require("@fastify/formbody"));
-
-// View is a templating manager for fastify
-fastify.register(require("@fastify/view"), {
-  engine: {
-    handlebars: require("handlebars"),
-  },
-});
-
-// Load and parse SEO data
-const seo = require("./src/seo.json");
-if (seo.url === "glitch-default") {
-  seo.url = `https://${process.env.PROJECT_DOMAIN}.glitch.me`;
-}
-
-/**
- * Our home page route
- *
- * Returns src/pages/index.hbs with data built into it
- */
-fastify.get("/", function (request, reply) {
-  // params is an object we'll pass to our handlebars template
-  let params = { seo: seo };
-
-  // If someone clicked the option for a random color it'll be passed in the querystring
-  if (request.query.randomize) {
-    // We need to load our color data file, pick one at random, and add it to the params
-    const colors = require("./src/colors.json");
-    const allColors = Object.keys(colors);
-    let currentColor = allColors[(allColors.length * Math.random()) << 0];
-
-    // Add the color properties to the params object
-    params = {
-      color: colors[currentColor],
-      colorError: null,
-      seo: seo,
-    };
-  }
-
-  // The Handlebars code will be able to access the parameter values and build them into the page
-  return reply.view("/src/pages/index.hbs", params);
-});
-
-/**
- * Our POST route to handle and react to form submissions
- *
- * Accepts body data indicating the user choice
- */
-fastify.post("/", function (request, reply) {
-  // Build the params object to pass to the template
-  let params = { seo: seo };
-
-  // If the user submitted a color through the form it'll be passed here in the request body
-  let color = request.body.color;
-
-  // If it's not empty, let's try to find the color
-  if (color) {
-    // ADD CODE FROM TODO HERE TO SAVE SUBMITTED FAVORITES
-
-    // Load our color data file
-    const colors = require("./src/colors.json");
-
-    // Take our form submission, remove whitespace, and convert to lowercase
-    color = color.toLowerCase().replace(/\s/g, "");
-
-    // Now we see if that color is a key in our colors object
-    if (colors[color]) {
-      // Found one!
-      params = {
-        color: colors[color],
-        colorError: null,
-        seo: seo,
-      };
+  request.post(authOptions, (error, response, body) => {
+    if (!error && response.statusCode === 200) {
+      const access_token = body.access_token;
+      const uri = process.env.FRONTEND_URI || "http://localhost:3000";
+      res.redirect(uri + "?access_token=" + access_token);
     } else {
-      // No luck! Return the user value as the error property
-      params = {
-        colorError: request.body.color,
-        seo: seo,
-      };
+      res.status(500).send("Authentication failed");
     }
-  }
-
-  // The Handlebars template will use the parameter values to update the page with the chosen color
-  return reply.view("/src/pages/index.hbs", params);
+  });
 });
 
-// Run the server and report out to the logs
-fastify.listen(
-  { port: process.env.PORT, host: "0.0.0.0" },
-  function (err, address) {
-    if (err) {
-      console.error(err);
-      process.exit(1);
+app.get("/tracks", (req, res) => {
+  const access_token = req.query.access_token;
+
+  const options = {
+    url: "https://api.spotify.com/v1/me/tracks?limit=50",
+    headers: { Authorization: "Bearer " + access_token },
+    json: true,
+  };
+
+  request.get(options, (error, response, body) => {
+    if (!error && response.statusCode === 200) {
+      const tracks = body.items.map((item) => ({
+        name: item.track.name,
+        artist: item.track.artists[0].name,
+        preview_url: item.track.preview_url,
+      }));
+      res.json(tracks);
+    } else {
+      res.status(500).send("Failed to fetch tracks");
     }
-    console.log(`Your app is listening on ${address}`);
-  }
-);
+  });
+});
+
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
