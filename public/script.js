@@ -19,6 +19,7 @@ if (access_token) {
 
 let currentTrack = null;
 let score = 0;
+let timer = null; // Référence pour le timer
 
 function startQuiz(tracks) {
   const quizContainer = document.getElementById("quizContainer");
@@ -27,20 +28,52 @@ function startQuiz(tracks) {
   const answerInput = document.getElementById("answerInput");
   const submitAnswer = document.getElementById("submitAnswer");
   const scoreDisplay = document.getElementById("score");
+  const timerDisplay = document.createElement("div");
+
+  // Ajouter un affichage pour le timer
+  timerDisplay.id = "timer";
+  timerDisplay.textContent = "Time remaining: 10:00";
+  quizContainer.insertBefore(timerDisplay, quizContainer.firstChild);
 
   loginButton.style.display = "none";
   quizContainer.style.display = "block";
 
+  // Fonction pour charger un morceau
   function loadTrack() {
     currentTrack = tracks[Math.floor(Math.random() * tracks.length)];
     audioPlayer.src = currentTrack.preview_url; // Charger l'extrait audio du morceau
+  }
+
+  // Fonction pour mettre à jour le timer
+  function startTimer(durationInSeconds) {
+    let timeRemaining = durationInSeconds;
+
+    timer = setInterval(() => {
+      const minutes = Math.floor(timeRemaining / 60);
+      const seconds = timeRemaining % 60;
+      timerDisplay.textContent = `Time remaining: ${minutes}:${seconds
+        .toString()
+        .padStart(2, "0")}`;
+
+      if (timeRemaining === 0) {
+        clearInterval(timer); // Arrêter le timer
+        endGame(); // Terminer le jeu
+      }
+
+      timeRemaining--;
+    }, 1000);
+  }
+
+  // Fonction pour terminer le jeu
+  function endGame() {
+    alert(`Time's up! Your final score is: ${score}`);
+    quizContainer.innerHTML = `<h2>Game Over</h2><p>Your final score: ${score}</p>`;
   }
 
   submitAnswer.addEventListener("click", () => {
     const userAnswer = answerInput.value.toLowerCase().trim();
     const correctAnswer = currentTrack.name.toLowerCase().trim();
 
-    // Vérifier si la réponse correspond uniquement au titre
     if (userAnswer === correctAnswer) {
       score++;
       scoreDisplay.textContent = `Score: ${score}`;
@@ -54,4 +87,5 @@ function startQuiz(tracks) {
   });
 
   loadTrack();
+  startTimer(600); // Démarrer le timer pour 10 minutes (600 secondes)
 }

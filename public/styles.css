@@ -89,16 +89,29 @@ audio {
   color: #1db954;
 }
 
-
 /* Style pour le footer */
 footer {
   margin-top: 50px;
   padding: 10px 0;
   background-color: #181818; /* Fond sombre */
-  color: #BBBBBB; /* Texte gris clair */
+  color: #bbbbbb; /* Texte gris clair */
   text-align: center;
   font-size: 0.8rem; /* Petit texte */
   position: fixed;
   bottom: 0;
   width: 100%;
+}
+footer a {
+  color: #1db954; /* Couleur verte Spotify */
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+#timer {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ff0000; /* Rouge pour indiquer l'urgence */
+  margin-bottom: 20px;
 }
