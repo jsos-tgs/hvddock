@@ -1,0 +1,97 @@
+/* Style global */
+body {
+  font-family: "Roboto", Arial, sans-serif;
+  background-color: #121212; /* Fond sombre */
+  color: #ffffff; /* Texte blanc pour contraste */
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+/* Conteneur principal */
+.container {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #181818; /* Fond légèrement plus clair */
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3); /* Ombre subtile */
+}
+
+/* Titre */
+h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #1db954; /* Vert distinctif Spotify */
+  margin-bottom: 20px;
+}
+
+/* Boutons */
+button {
+  display: inline-block;
+  padding: 15px 30px;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: #1db954; /* Vert distinctif Spotify */
+  color: #121212; /* Texte sombre pour contraste */
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background-color: #1ed760; /* Légèrement plus clair au survol */
+  transform: translateY(-2px); /* Léger effet de levée */
+}
+
+button:active {
+  background-color: #1aa34a; /* Vert plus foncé au clic */
+  transform: translateY(0); /* Retire l'effet de levée */
+}
+
+/* Zone du quiz */
+#quizContainer {
+  margin-top: 20px;
+}
+
+/* Champs de texte */
+input[type="text"] {
+  width: 80%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #333; /* Bordure subtile */
+  border-radius: 25px;
+  background-color: #2a2a2a; /* Fond sombre */
+  color: #ffffff; /* Texte blanc */
+  font-size: 1rem;
+}
+
+input[type="text"]::placeholder {
+  color: #888888; /* Texte d'indication gris */
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border-color: #1db954; /* Bordure verte au focus */
+}
+
+/* Lecteur audio */
+audio {
+  margin: 20px 0;
+  width: 100%;
+}
+
+/* Score */
+#score {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #1db954;
+}
+
+/* Footer (optionnel) */
+footer {
+  margin-top: 50px;
+  font-size: 0.8rem;
+  color: #bbbbbb; /* Texte gris clair */
+}
