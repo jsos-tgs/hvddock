@@ -8,12 +8,13 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 const redirect_uri =
-  process.env.REDIRECT_URI || `http://localhost:${PORT}/callback`;
+  process.env.REDIRECT_URI || `https://spotigame.glitch.me/callback`;
 
 app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/login", (req, res) => {
-  const scope = "user-read-private user-read-email user-library-read";
+  const scope =
+    "user-read-private user-read-email user-library-read playlist-read-private";
   const spotifyAuthURL =
     "https://accounts.spotify.com/authorize?" +
     querystring.stringify({
@@ -48,7 +49,7 @@ app.get("/callback", (req, res) => {
   request.post(authOptions, (error, response, body) => {
     if (!error && response.statusCode === 200) {
       const access_token = body.access_token;
-      const uri = process.env.FRONTEND_URI || "https://spotigame.glitch.me/callback";
+      const uri = process.env.FRONTEND_URI || "https://spotigame.glitch.me";
       res.redirect(uri + "?access_token=" + access_token);
     } else {
       res.status(500).send("Authentication failed");
@@ -75,6 +76,35 @@ app.get("/tracks", (req, res) => {
       res.json(tracks);
     } else {
       res.status(500).send("Failed to fetch tracks");
+    }
+  });
+});
+app.get("/playlist", (req, res) => {
+  const { access_token, playlist_id } = req.query;
+
+  if (!playlist_id) {
+    return res.status(400).send("Playlist ID is required");
+  }
+
+  const options = {
+    url: `https://api.spotify.com/v1/playlists/${playlist_id}/tracks`,
+    headers: { Authorization: "Bearer " + access_token },
+    json: true,
+  };
+
+  request.get(options, (error, response, body) => {
+    if (!error && response.statusCode === 200) {
+      const tracks = body.items
+        .filter((item) => item.track.preview_url) // Filtrer les morceaux avec des extraits audio
+        .map((item) => ({
+          name: item.track.name,
+          artist: item.track.artists[0].name,
+          preview_url: item.track.preview_url,
+        }));
+      res.json(tracks);
+    } else {
+      console.error("Error fetching playlist:", body);
+      res.status(500).send("Failed to fetch playlist tracks");
     }
   });
 });
