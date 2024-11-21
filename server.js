@@ -48,7 +48,7 @@ app.get("/callback", (req, res) => {
   request.post(authOptions, (error, response, body) => {
     if (!error && response.statusCode === 200) {
       const access_token = body.access_token;
-      const uri = process.env.FRONTEND_URI || "http://localhost:3000";
+      const uri = process.env.FRONTEND_URI || "https://spotigame.glitch.me/callback";
       res.redirect(uri + "?access_token=" + access_token);
     } else {
       res.status(500).send("Authentication failed");
