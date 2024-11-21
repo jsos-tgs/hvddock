@@ -1,8 +1,8 @@
 /* Style global */
 body {
   font-family: "Roboto", Arial, sans-serif;
-  background-color: #f5f5dc; /* Fond beige */
-  color: #5a3e36; /* Marron pour le texte */
+  background-color: #000000; /* Fond noir profond */
+  color: #ffffff; /* Texte blanc */
   margin: 0;
   padding: 0;
   text-align: center;
@@ -13,16 +13,21 @@ body {
   max-width: 600px;
   margin: 50px auto;
   padding: 20px;
-  background-color: #fff5e1; /* Beige plus clair pour contraste */
+  background: linear-gradient(
+    145deg,
+    #1a1a1a,
+    #333333
+  ); /* Effet brillant gris */
   border-radius: 10px;
-  box-shadow: 0 8px 24px rgba(90, 62, 54, 0.3); /* Ombre subtile marron */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); /* Ombre élégante */
 }
 
 /* Titre */
 h1 {
   font-size: 2.5rem;
   font-weight: bold;
-  color: #5a3e36; /* Marron foncé */
+  color: #ffffff; /* Blanc pur */
+  text-shadow: 0 4px 8px rgba(255, 255, 255, 0.3); /* Effet brillant */
   margin-bottom: 20px;
 }
 
@@ -32,21 +37,29 @@ button {
   padding: 15px 30px;
   font-size: 1rem;
   font-weight: bold;
-  background-color: #5a3e36; /* Marron */
-  color: #fff5e1; /* Texte beige clair */
-  border: none;
+  background: linear-gradient(145deg, #444444, #222222); /* Noir brillant */
+  color: #ffffff; /* Texte blanc */
+  border: 1px solid #555555; /* Bordure subtile */
   border-radius: 50px;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
 button:hover {
-  background-color: #7b5548; /* Marron légèrement plus clair */
+  background: linear-gradient(
+    145deg,
+    #666666,
+    #444444
+  ); /* Plus clair au survol */
   transform: translateY(-2px); /* Léger effet de levée */
 }
 
 button:active {
-  background-color: #3e2723; /* Marron foncé */
+  background: linear-gradient(
+    145deg,
+    #333333,
+    #111111
+  ); /* Plus foncé au clic */
   transform: translateY(0); /* Retire l'effet de levée */
 }
 
@@ -60,20 +73,20 @@ input[type="text"] {
   width: 80%;
   padding: 12px;
   margin: 10px 0;
-  border: 1px solid #5a3e36; /* Bordure marron */
+  border: 1px solid #555555; /* Bordure grise élégante */
   border-radius: 25px;
-  background-color: #fff5e1; /* Fond beige clair */
-  color: #5a3e36; /* Texte marron */
+  background-color: #1a1a1a; /* Fond gris sombre */
+  color: #ffffff; /* Texte blanc */
   font-size: 1rem;
 }
 
 input[type="text"]::placeholder {
-  color: #7b5548; /* Marron clair */
+  color: #777777; /* Texte d'indication gris clair */
 }
 
 input[type="text"]:focus {
   outline: none;
-  border-color: #3e2723; /* Bordure marron foncé au focus */
+  border-color: #ffffff; /* Bordure blanche au focus */
 }
 
 /* Lecteur audio */
@@ -86,7 +99,8 @@ audio {
 #timer {
   font-size: 1.2rem;
   font-weight: bold;
-  color: #5a3e36; /* Marron */
+  color: #ffffff; /* Blanc pur */
+  text-shadow: 0 4px 8px rgba(255, 255, 255, 0.3); /* Effet brillant */
   margin-bottom: 20px;
 }
 
@@ -94,7 +108,7 @@ audio {
 #score {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #7b5548; /* Marron clair */
+  color: #cccccc; /* Gris clair */
   margin-top: 20px;
 }
 
@@ -102,14 +116,14 @@ audio {
 footer {
   margin-top: 50px;
   padding: 10px 0;
-  background-color: #fff5e1; /* Fond beige clair */
-  color: #5a3e36; /* Texte marron */
+  background: linear-gradient(145deg, #1a1a1a, #333333); /* Fond brillant */
+  color: #aaaaaa; /* Texte gris clair */
   text-align: center;
   font-size: 0.8rem;
 }
 
 footer a {
-  color: #5a3e36; /* Marron */
+  color: #ffffff; /* Lien blanc */
   text-decoration: none;
 }
 
