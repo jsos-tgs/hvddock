@@ -1,15 +1,23 @@
-<div class="container">
-  <h1>Spotify Music Quiz</h1>
-  <button id="loginButton">Login with Spotify</button>
-  <div id="playlistForm" style="display: none">
-    <input type="text" id="playlistId" placeholder="Enter Playlist ID" />
-    <button id="loadPlaylist">Load Playlist</button>
-  </div>
-  <div id="quizContainer" style="display: none">
-    <p id="question">Guess the artist or the title!</p>
-    <audio id="audioPlayer" controls></audio>
-    <input type="text" id="answerInput" placeholder="Your answer" />
-    <button id="submitAnswer">Submit</button>
-    <p id="score">Score: 0</p>
-  </div>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spotify Music Quiz</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Spotify Music Quiz</h1>
+      <button id="loginButton">Login with Spotify</button>
+      <div id="quizContainer" style="display: none">
+        <p id="question">Guess the artist or the title!</p>
+        <audio id="audioPlayer" controls></audio>
+        <input type="text" id="answerInput" placeholder="Your answer" />
+        <button id="submitAnswer">Submit</button>
+        <p id="score">Score: 0</p>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
