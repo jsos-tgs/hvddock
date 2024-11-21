@@ -6,10 +6,14 @@ const urlParams = new URLSearchParams(window.location.search);
 const access_token = urlParams.get("access_token");
 
 if (access_token) {
-  fetch(`/tracks?access_token=${access_token}`)
+  fetch(`/playlist?access_token=${access_token}`) // Utilisation de l'endpoint /playlist
     .then((response) => response.json())
     .then((tracks) => {
       startQuiz(tracks);
+    })
+    .catch((err) => {
+      console.error("Failed to fetch playlist tracks:", err);
+      alert("Could not load the playlist. Please try again.");
     });
 }
 

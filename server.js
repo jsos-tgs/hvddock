@@ -13,7 +13,7 @@ const redirect_uri =
 app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/login", (req, res) => {
-  const scope = "user-read-private user-read-email user-library-read";
+  const scope = "user-read-private user-read-email playlist-read-private";
   const spotifyAuthURL =
     "https://accounts.spotify.com/authorize?" +
     querystring.stringify({
@@ -56,25 +56,30 @@ app.get("/callback", (req, res) => {
   });
 });
 
-app.get("/tracks", (req, res) => {
+// Nouveau endpoint pour récupérer les morceaux d'une playlist spécifique
+app.get("/playlist", (req, res) => {
   const access_token = req.query.access_token;
+  const playlist_id = "4zjlYCDG8fX7Nmw8IpV78T"; // Remplace par l'ID de ta playlist cible
 
   const options = {
-    url: "https://api.spotify.com/v1/me/tracks?limit=50",
+    url: `https://api.spotify.com/v1/playlists/${playlist_id}/tracks`,
     headers: { Authorization: "Bearer " + access_token },
     json: true,
   };
 
   request.get(options, (error, response, body) => {
     if (!error && response.statusCode === 200) {
-      const tracks = body.items.map((item) => ({
-        name: item.track.name,
-        artist: item.track.artists[0].name,
-        preview_url: item.track.preview_url,
-      }));
+      const tracks = body.items
+        .filter((item) => item.track.preview_url) // Filtrer les morceaux avec un extrait audio
+        .map((item) => ({
+          name: item.track.name,
+          artist: item.track.artists[0].name,
+          preview_url: item.track.preview_url,
+        }));
       res.json(tracks);
     } else {
-      res.status(500).send("Failed to fetch tracks");
+      console.error("Error fetching playlist:", body);
+      res.status(500).send("Failed to fetch playlist tracks");
     }
   });
 });
