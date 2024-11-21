@@ -89,9 +89,16 @@ audio {
   color: #1db954;
 }
 
-/* Footer (optionnel) */
+
+/* Style pour le footer */
 footer {
   margin-top: 50px;
-  font-size: 0.8rem;
-  color: #bbbbbb; /* Texte gris clair */
+  padding: 10px 0;
+  background-color: #181818; /* Fond sombre */
+  color: #BBBBBB; /* Texte gris clair */
+  text-align: center;
+  font-size: 0.8rem; /* Petit texte */
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }

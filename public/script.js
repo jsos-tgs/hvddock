@@ -6,14 +6,14 @@ const urlParams = new URLSearchParams(window.location.search);
 const access_token = urlParams.get("access_token");
 
 if (access_token) {
-  fetch(`/playlist?access_token=${access_token}`) // Utilisation de l'endpoint /playlist
+  fetch(`/artist?access_token=${access_token}`) // Utilisation de l'endpoint /artist
     .then((response) => response.json())
     .then((tracks) => {
       startQuiz(tracks);
     })
     .catch((err) => {
-      console.error("Failed to fetch playlist tracks:", err);
-      alert("Could not load the playlist. Please try again.");
+      console.error("Failed to fetch artist tracks:", err);
+      alert("Could not load tracks. Please try again.");
     });
 }
 
@@ -33,20 +33,24 @@ function startQuiz(tracks) {
 
   function loadTrack() {
     currentTrack = tracks[Math.floor(Math.random() * tracks.length)];
-    audioPlayer.src = currentTrack.preview_url;
+    audioPlayer.src = currentTrack.preview_url; // Charger l'extrait audio du morceau
   }
 
   submitAnswer.addEventListener("click", () => {
-    const userAnswer = answerInput.value.toLowerCase();
-    if (
-      userAnswer.includes(currentTrack.name.toLowerCase()) ||
-      userAnswer.includes(currentTrack.artist.toLowerCase())
-    ) {
+    const userAnswer = answerInput.value.toLowerCase().trim();
+    const correctAnswer = currentTrack.name.toLowerCase().trim();
+
+    // Vérifier si la réponse correspond uniquement au titre
+    if (userAnswer === correctAnswer) {
       score++;
+      scoreDisplay.textContent = `Score: ${score}`;
+      alert("Correct! 🎉");
+    } else {
+      alert(`Wrong! The correct title was: ${currentTrack.name}`);
     }
-    scoreDisplay.textContent = `Score: ${score}`;
+
     answerInput.value = "";
-    loadTrack();
+    loadTrack(); // Charger un nouveau morceau
   });
 
   loadTrack();
