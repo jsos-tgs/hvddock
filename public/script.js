@@ -28,15 +28,15 @@ function startQuiz(tracks) {
   const answerInput = document.getElementById("answerInput");
   const submitAnswer = document.getElementById("submitAnswer");
   const scoreDisplay = document.getElementById("score");
-  const timerDisplay = document.createElement("div");
+  const secretCodeContainer = document.getElementById("secretCodeContainer");
+  const secretCode = document.getElementById("secretCode");
+  const secretSound = document.getElementById("secretSound");
+  const infoMessage = document.getElementById("infoMessage");
 
-  // Ajouter un affichage pour le timer
-  timerDisplay.id = "timer";
-  timerDisplay.textContent = "Time remaining: 10:00";
-  quizContainer.insertBefore(timerDisplay, quizContainer.firstChild);
-
+  // Initialisation du message et de l'interface
   loginButton.style.display = "none";
   quizContainer.style.display = "block";
+  infoMessage.textContent = "Get a score of 8 to unlock the code"; // Message permanent
 
   // Fonction pour charger un morceau
   function loadTrack() {
@@ -46,6 +46,11 @@ function startQuiz(tracks) {
 
   // Fonction pour mettre à jour le timer
   function startTimer(durationInSeconds) {
+    const timerDisplay = document.createElement("div");
+    timerDisplay.id = "timer";
+    timerDisplay.textContent = "Time remaining: 10:00";
+    quizContainer.insertBefore(timerDisplay, quizContainer.firstChild);
+
     let timeRemaining = durationInSeconds;
 
     timer = setInterval(() => {
@@ -70,6 +75,21 @@ function startQuiz(tracks) {
     quizContainer.innerHTML = `<h2>Game Over</h2><p>Your final score: ${score}</p>`;
   }
 
+  // Fonction pour afficher le code secret si le score dépasse 7
+  function checkScoreForSecretCode() {
+    if (score > 7) {
+      secretSound.play(); // Jouer le son "C'est le H"
+      secretCode.textContent = "Secret Code: 0905";
+      secretCodeContainer.style.display = "block";
+
+      // Cache le code après 2 secondes
+      setTimeout(() => {
+        secretCodeContainer.style.display = "none";
+      }, 2000);
+    }
+  }
+
+  // Gestion de la soumission de réponse
   submitAnswer.addEventListener("click", () => {
     const userAnswer = answerInput.value.toLowerCase().trim();
     const correctAnswer = currentTrack.name.toLowerCase().trim();
@@ -78,6 +98,7 @@ function startQuiz(tracks) {
       score++;
       scoreDisplay.textContent = `Score: ${score}`;
       alert("Correct! 🎉");
+      checkScoreForSecretCode(); // Vérifie si le score est supérieur à 7
     } else {
       alert(`Wrong! The correct title was: ${currentTrack.name}`);
     }
