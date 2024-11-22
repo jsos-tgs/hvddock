@@ -56,7 +56,7 @@ function startQuiz(tracks) {
   function startTimer(durationInSeconds) {
     const timerDisplay = document.createElement("div");
     timerDisplay.id = "timer";
-    timerDisplay.textContent = "Time remaining: 10:00";
+    timerDisplay.textContent = "Time remaining: 5:00"; // Durée initiale pour 5 minutes
     quizContainer.insertBefore(timerDisplay, quizContainer.firstChild);
 
     let timeRemaining = durationInSeconds;
@@ -121,5 +121,5 @@ function startQuiz(tracks) {
   });
 
   loadTrack();
-  startTimer(600); // Démarrer le timer pour 10 minutes (600 secondes)
+  startTimer(300); // Démarrer le timer pour 5 minutes (300 secondes)
 }
