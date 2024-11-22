@@ -10,20 +10,37 @@
     <div class="container">
       <h1>HVDDOCK QUIZ</h1>
       <button id="loginButton">Login with Spotify</button>
-      <div id="quizContainer" style="display: none">
+
+      <!-- Message informatif -->
+      <div id="infoMessage" style="margin-top: 20px;">Get a score of 8 to unlock the code</div>
+
+      <!-- Conteneur du quiz -->
+      <div id="quizContainer" style="display: none;">
         <p id="question">Guess the title!</p>
         <audio id="audioPlayer" controls></audio>
         <input type="text" id="answerInput" placeholder="Your answer" />
         <button id="submitAnswer">Submit</button>
         <p id="score">Score: 0</p>
+
+        <!-- Conteneur pour le code secret -->
+        <div id="secretCodeContainer" style="display: none;">
+          <p id="secretCode"></p>
+        </div>
       </div>
     </div>
+
+    <!-- Audio pour le son "C'est le H" -->
+    <audio
+      id="secretSound"
+      src="https://cdn.glitch.global/cb8e26fe-fefc-49d6-9e8b-7d903694f76e/cestleH.mp3?v=1732267480269"
+    ></audio>
+
     <script src="script.js"></script>
   </body>
+  <footer>
+    <p class="footer-text">
+      Developed by
+      <a href="https://your-portfolio-link.com" target="_blank">Nathan Lubino</a>
+    </p>
+  </footer>
 </html>
-<footer>
-  <p class="footer-text">
-    Developed by
-    <a href="https://your-portfolio-link.com" target="_blank">Nathan Lubino</a>
-  </p>
-</footer>
