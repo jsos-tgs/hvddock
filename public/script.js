@@ -33,7 +33,7 @@ function startQuiz(tracks) {
   const secretSound = document.getElementById("secretSound");
   const infoMessage = document.getElementById("infoMessage");
 
-  // Initialisation du message et de l'interface
+  // Initialisation de l'interface
   loginButton.style.display = "none";
   quizContainer.style.display = "block";
   infoMessage.textContent = "Get a score of 8 to unlock the code"; // Message permanent
@@ -71,13 +71,16 @@ function startQuiz(tracks) {
 
   // Fonction pour terminer le jeu
   function endGame() {
-    alert(`Time's up! Your final score is: ${score}`);
-    quizContainer.innerHTML = `<h2>Game Over</h2><p>Your final score: ${score}</p>`;
+    clearInterval(timer); // Assurez-vous que le timer est arrêté
+    quizContainer.innerHTML = `
+      <h2>You finished the quiz!</h2>
+      <p>We're glad you really know HVDDOCK.</p>`;
   }
 
-  // Fonction pour afficher le code secret si le score dépasse 7
+  // Fonction pour afficher le code secret et arrêter le jeu lorsque le score atteint 8
   function checkScoreForSecretCode() {
-    if (score > 7) {
+    if (score === 8) {
+      clearInterval(timer); // Arrêter le timer
       secretSound.play(); // Jouer le son "C'est le H"
       secretCode.textContent = "Secret Code: 0905";
       secretCodeContainer.style.display = "block";
@@ -85,6 +88,8 @@ function startQuiz(tracks) {
       // Cache le code après 2 secondes
       setTimeout(() => {
         secretCodeContainer.style.display = "none";
+        alert("Congratulations! I hope you remembered the code.");
+        endGame(); // Terminer le jeu
       }, 2000);
     }
   }
@@ -98,7 +103,7 @@ function startQuiz(tracks) {
       score++;
       scoreDisplay.textContent = `Score: ${score}`;
       alert("Correct! 🎉");
-      checkScoreForSecretCode(); // Vérifie si le score est supérieur à 7
+      checkScoreForSecretCode(); // Vérifie si le score atteint 8
     } else {
       alert(`Wrong! The correct title was: ${currentTrack.name}`);
     }
