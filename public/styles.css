@@ -2,38 +2,35 @@
 body {
   font-family: "Roboto", Arial, sans-serif;
   background-color: #000000; /* Fond noir */
-  color: #ffffff; /* Texte blanc pour contraste */
+  color: #ffffff; /* Texte blanc */
   margin: 0;
   padding: 0;
-  text-align: center;
-  min-height: 100vh;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 /* Conteneur principal */
 .container {
   max-width: 600px;
   width: 90%;
-  margin: 0 auto;
+  margin: auto;
   padding: 20px;
   background: url("https://cdn.glitch.global/cb8e26fe-fefc-49d6-9e8b-7d903694f76e/hvddock.PNG?v=1732269490166")
-    no-repeat center center; /* Image d'arrière-plan */
+    no-repeat center center; /* Image centrée */
   background-size: cover; /* L'image couvre tout le conteneur */
   border-radius: 15px; /* Coins arrondis */
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8); /* Ombre subtile */
-  color: #ffffff; /* Texte blanc pour contraste */
+  color: #ffffff; /* Texte blanc */
   text-align: center;
-  overflow: hidden;
 }
 
 /* Titre du quiz */
 h1 {
   font-size: 2.5rem;
   margin-bottom: 20px;
-  color: #ffd700; /* Doré pour un effet brillant */
-  text-shadow: 0 4px 8px rgba(255, 215, 0, 0.5); /* Effet lumineux sur le texte */
+  color: #d2b48c; /* Texte beige */
+  text-shadow: 0 4px 8px rgba(210, 180, 140, 0.5); /* Effet lumineux */
 }
 
 /* Boutons */
@@ -44,14 +41,14 @@ button {
   font-weight: bold;
   background: rgba(255, 255, 255, 0.2); /* Fond transparent */
   color: #ffffff; /* Texte blanc */
-  border: 1px solid #ffd700; /* Bordure dorée */
+  border: 1px solid #d2b48c; /* Bordure beige */
   border-radius: 25px;
   cursor: pointer;
   transition: background 0.3s ease, transform 0.2s ease;
 }
 
 button:hover {
-  background: rgba(255, 215, 0, 0.5); /* Fond doré transparent au survol */
+  background: rgba(210, 180, 140, 0.5); /* Fond beige transparent au survol */
   transform: translateY(-2px); /* Léger effet de levée */
 }
 
@@ -62,7 +59,7 @@ button:active {
 /* Zone du quiz */
 #quizContainer {
   margin-top: 20px;
-  background: rgba(0, 0, 0, 0.7); /* Fond semi-transparent pour lisibilité */
+  background: rgba(0, 0, 0, 0.7); /* Fond semi-transparent */
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Ombre subtile */
@@ -73,7 +70,7 @@ input[type="text"] {
   width: 80%;
   padding: 12px;
   margin: 10px 0;
-  border: 1px solid #ffd700; /* Bordure dorée */
+  border: 1px solid #d2b48c; /* Bordure beige */
   border-radius: 25px;
   background-color: rgba(255, 255, 255, 0.1); /* Fond transparent */
   color: #ffffff; /* Texte blanc */
@@ -86,7 +83,7 @@ input[type="text"]::placeholder {
 
 input[type="text"]:focus {
   outline: none;
-  border-color: #ffd700; /* Bordure dorée au focus */
+  border-color: #d2b48c; /* Bordure beige au focus */
 }
 
 /* Lecteur audio */
@@ -99,8 +96,8 @@ audio {
 #timer {
   font-size: 1.2rem;
   font-weight: bold;
-  color: #ffd700; /* Texte doré */
-  text-shadow: 0 2px 4px rgba(255, 215, 0, 0.5); /* Effet lumineux */
+  color: #d2b48c; /* Texte beige */
+  text-shadow: 0 2px 4px rgba(210, 180, 140, 0.5); /* Effet lumineux */
   margin-bottom: 20px;
 }
 
@@ -116,34 +113,35 @@ audio {
   margin-top: 20px;
   padding: 15px;
   background-color: rgba(0, 0, 0, 0.8); /* Fond sombre semi-transparent */
-  color: #ffd700; /* Texte doré */
+  color: #d2b48c; /* Texte beige */
   font-size: 1.5rem;
   font-weight: bold;
   border-radius: 10px;
   text-align: center;
-  box-shadow: 0 4px 8px rgba(255, 215, 0, 0.5); /* Effet lumineux */
+  box-shadow: 0 4px 8px rgba(210, 180, 140, 0.5); /* Effet lumineux */
 }
 
-/* Message informatif */
+/* Message d'information */
 #infoMessage {
   font-size: 1rem;
   font-weight: bold;
-  color: #ffd700; /* Doré pour attirer l'attention */
+  color: #d2b48c; /* Texte beige */
   margin-top: 20px;
   text-align: center;
 }
 
 /* Footer */
 footer {
-  margin-top: 50px;
-  padding: 10px 0;
+  margin-top: auto; /* Positionne le footer en bas */
+  background-color: #000000; /* Fond noir */
+  padding: 10px;
+  text-align: center;
   color: #ffffff; /* Texte blanc */
   font-size: 0.8rem;
-  text-align: center;
 }
 
 footer a {
-  color: #ffd700; /* Lien doré */
+  color: #d2b48c; /* Lien beige */
   text-decoration: none;
 }
 
