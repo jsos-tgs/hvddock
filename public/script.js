@@ -38,6 +38,14 @@ function startQuiz(tracks) {
   quizContainer.style.display = "block";
   infoMessage.textContent = "Get a score of 8 to unlock the code"; // Message permanent
 
+  // Fonction pour normaliser les chaînes avant comparaison
+  function normalizeString(str) {
+    return str
+      .toLowerCase() // Convertir en minuscules
+      .trim() // Supprimer les espaces superflus
+      .replace(/[’'"]/g, ""); // Remplacer les apostrophes et guillemets pour uniformiser
+  }
+
   // Fonction pour charger un morceau
   function loadTrack() {
     currentTrack = tracks[Math.floor(Math.random() * tracks.length)];
@@ -96,8 +104,8 @@ function startQuiz(tracks) {
 
   // Gestion de la soumission de réponse
   submitAnswer.addEventListener("click", () => {
-    const userAnswer = answerInput.value.toLowerCase().trim();
-    const correctAnswer = currentTrack.name.toLowerCase().trim();
+    const userAnswer = normalizeString(answerInput.value); // Normaliser la réponse utilisateur
+    const correctAnswer = normalizeString(currentTrack.name); // Normaliser le titre du morceau
 
     if (userAnswer === correctAnswer) {
       score++;
