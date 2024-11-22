@@ -1,34 +1,39 @@
 /* Style global */
 body {
   font-family: "Roboto", Arial, sans-serif;
-  background-color: #000000; /* Fond noir profond */
-  color: #ffffff; /* Texte blanc */
+  background-color: #000000; /* Fond noir */
+  color: #ffffff; /* Texte blanc pour contraste */
   margin: 0;
   padding: 0;
   text-align: center;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Conteneur principal */
 .container {
   max-width: 600px;
-  margin: 50px auto;
+  width: 90%;
+  margin: 0 auto;
   padding: 20px;
-  background: linear-gradient(
-    145deg,
-    #1a1a1a,
-    #333333
-  ); /* Effet brillant gris */
-  border-radius: 10px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); /* Ombre élégante */
+  background: url("https://cdn.glitch.global/cb8e26fe-fefc-49d6-9e8b-7d903694f76e/hvddock.PNG?v=1732269490166")
+    no-repeat center center; /* Image d'arrière-plan */
+  background-size: cover; /* L'image couvre tout le conteneur */
+  border-radius: 15px; /* Coins arrondis */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8); /* Ombre subtile */
+  color: #ffffff; /* Texte blanc pour contraste */
+  text-align: center;
+  overflow: hidden;
 }
 
-/* Titre */
+/* Titre du quiz */
 h1 {
   font-size: 2.5rem;
-  font-weight: bold;
-  color: #ffffff; /* Blanc pur */
-  text-shadow: 0 4px 8px rgba(255, 255, 255, 0.3); /* Effet brillant */
   margin-bottom: 20px;
+  color: #ffd700; /* Doré pour un effet brillant */
+  text-shadow: 0 4px 8px rgba(255, 215, 0, 0.5); /* Effet lumineux sur le texte */
 }
 
 /* Boutons */
@@ -37,56 +42,51 @@ button {
   padding: 15px 30px;
   font-size: 1rem;
   font-weight: bold;
-  background: linear-gradient(145deg, #444444, #222222); /* Noir brillant */
+  background: rgba(255, 255, 255, 0.2); /* Fond transparent */
   color: #ffffff; /* Texte blanc */
-  border: 1px solid #555555; /* Bordure subtile */
-  border-radius: 50px;
+  border: 1px solid #ffd700; /* Bordure dorée */
+  border-radius: 25px;
   cursor: pointer;
   transition: background 0.3s ease, transform 0.2s ease;
 }
 
 button:hover {
-  background: linear-gradient(
-    145deg,
-    #666666,
-    #444444
-  ); /* Plus clair au survol */
+  background: rgba(255, 215, 0, 0.5); /* Fond doré transparent au survol */
   transform: translateY(-2px); /* Léger effet de levée */
 }
 
 button:active {
-  background: linear-gradient(
-    145deg,
-    #333333,
-    #111111
-  ); /* Plus foncé au clic */
   transform: translateY(0); /* Retire l'effet de levée */
 }
 
 /* Zone du quiz */
 #quizContainer {
   margin-top: 20px;
+  background: rgba(0, 0, 0, 0.7); /* Fond semi-transparent pour lisibilité */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Ombre subtile */
 }
 
-/* Champs de texte */
+/* Champ de texte */
 input[type="text"] {
   width: 80%;
   padding: 12px;
   margin: 10px 0;
-  border: 1px solid #555555; /* Bordure grise élégante */
+  border: 1px solid #ffd700; /* Bordure dorée */
   border-radius: 25px;
-  background-color: #1a1a1a; /* Fond gris sombre */
+  background-color: rgba(255, 255, 255, 0.1); /* Fond transparent */
   color: #ffffff; /* Texte blanc */
   font-size: 1rem;
 }
 
 input[type="text"]::placeholder {
-  color: #777777; /* Texte d'indication gris clair */
+  color: #aaaaaa; /* Texte d'indication gris clair */
 }
 
 input[type="text"]:focus {
   outline: none;
-  border-color: #ffffff; /* Bordure blanche au focus */
+  border-color: #ffd700; /* Bordure dorée au focus */
 }
 
 /* Lecteur audio */
@@ -99,8 +99,8 @@ audio {
 #timer {
   font-size: 1.2rem;
   font-weight: bold;
-  color: #ffffff; /* Blanc pur */
-  text-shadow: 0 4px 8px rgba(255, 255, 255, 0.3); /* Effet brillant */
+  color: #ffd700; /* Texte doré */
+  text-shadow: 0 2px 4px rgba(255, 215, 0, 0.5); /* Effet lumineux */
   margin-bottom: 20px;
 }
 
@@ -108,22 +108,42 @@ audio {
 #score {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #cccccc; /* Gris clair */
+  color: #ffffff;
+}
+
+/* Conteneur pour le code secret */
+#secretCodeContainer {
   margin-top: 20px;
+  padding: 15px;
+  background-color: rgba(0, 0, 0, 0.8); /* Fond sombre semi-transparent */
+  color: #ffd700; /* Texte doré */
+  font-size: 1.5rem;
+  font-weight: bold;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(255, 215, 0, 0.5); /* Effet lumineux */
+}
+
+/* Message informatif */
+#infoMessage {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #ffd700; /* Doré pour attirer l'attention */
+  margin-top: 20px;
+  text-align: center;
 }
 
 /* Footer */
 footer {
   margin-top: 50px;
   padding: 10px 0;
-  background: linear-gradient(145deg, #1a1a1a, #333333); /* Fond brillant */
-  color: #aaaaaa; /* Texte gris clair */
-  text-align: center;
+  color: #ffffff; /* Texte blanc */
   font-size: 0.8rem;
+  text-align: center;
 }
 
 footer a {
-  color: #ffffff; /* Lien blanc */
+  color: #ffd700; /* Lien doré */
   text-decoration: none;
 }
 
