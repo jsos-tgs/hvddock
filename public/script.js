@@ -19,7 +19,9 @@ if (access_token) {
 
 let currentTrack = null;
 let score = 0;
-let timer = null; // Référence pour le timer
+let attempts = 0;
+const maxAttempts = 8; // Nombre total de morceaux à jouer
+const timeLimit = 180; // Limite de temps en secondes (3 minutes)
 
 function startQuiz(tracks) {
   const quizContainer = document.getElementById("quizContainer");
@@ -32,28 +34,37 @@ function startQuiz(tracks) {
   const secretCode = document.getElementById("secretCode");
   const secretSound = document.getElementById("secretSound");
   const infoMessage = document.getElementById("infoMessage");
+  const timerDisplay = document.createElement("div");
+
+  timerDisplay.id = "timer";
+  quizContainer.insertBefore(timerDisplay, quizContainer.firstChild);
 
   // Initialisation de l'interface
   loginButton.style.display = "none";
   quizContainer.style.display = "block";
-  infoMessage.textContent = "Get a score of 8 to unlock the code"; // Message permanent
+  infoMessage.textContent = "Get a score of 8 to unlock the code";
+
+  // Fonction pour normaliser les chaînes avant comparaison
+  function normalizeString(str) {
+    return str.toLowerCase().trim().replace(/[’'"]/g, ""); // Remplacer les apostrophes et guillemets
+  }
 
   // Fonction pour charger un morceau
   function loadTrack() {
+    if (attempts >= maxAttempts) {
+      endGame();
+      return;
+    }
     currentTrack = tracks[Math.floor(Math.random() * tracks.length)];
-    audioPlayer.src = currentTrack.preview_url; // Charger l'extrait audio du morceau
+    audioPlayer.src = currentTrack.preview_url; // Charger l'extrait audio
+    attempts++;
   }
 
   // Fonction pour mettre à jour le timer
   function startTimer(durationInSeconds) {
-    const timerDisplay = document.createElement("div");
-    timerDisplay.id = "timer";
-    timerDisplay.textContent = "Time remaining: 10:00";
-    quizContainer.insertBefore(timerDisplay, quizContainer.firstChild);
-
     let timeRemaining = durationInSeconds;
 
-    timer = setInterval(() => {
+    const updateTimer = () => {
       const minutes = Math.floor(timeRemaining / 60);
       const seconds = timeRemaining % 60;
       timerDisplay.textContent = `Time remaining: ${minutes}:${seconds
@@ -61,57 +72,66 @@ function startQuiz(tracks) {
         .padStart(2, "0")}`;
 
       if (timeRemaining === 0) {
-        clearInterval(timer); // Arrêter le timer
-        endGame(); // Terminer le jeu
+        clearInterval(timer);
+        endGame(); // Terminer le jeu automatiquement à la fin du temps
       }
 
       timeRemaining--;
-    }, 1000);
+    };
+
+    updateTimer(); // Mise à jour initiale
+    timer = setInterval(updateTimer, 1000);
   }
 
   // Fonction pour terminer le jeu
   function endGame() {
-    clearInterval(timer); // Assurez-vous que le timer est arrêté
-    quizContainer.innerHTML = `
-      <h2>You finished the quiz!</h2>
-      <p>We're glad you really know HVDDOCK.</p>`;
-  }
-
-  // Fonction pour afficher le code secret et arrêter le jeu lorsque le score atteint 8
-  function checkScoreForSecretCode() {
-    if (score === 8) {
-      clearInterval(timer); // Arrêter le timer
-      secretSound.play(); // Jouer le son "C'est le H"
+    clearInterval(timer); // Arrêter le timer
+    const finalScore = `Score: ${score}/${maxAttempts}`;
+    if (score === maxAttempts) {
+      secretSound.play(); // Jouer le son
       secretCode.textContent = "Secret Code: 0905";
       secretCodeContainer.style.display = "block";
 
       // Cache le code après 2 secondes
       setTimeout(() => {
         secretCodeContainer.style.display = "none";
-        alert("Congratulations! I hope you remembered the code.");
-        endGame(); // Terminer le jeu
+        alert("Congratulations! You got a perfect score!");
+        quizContainer.innerHTML = `
+          <h2>You finished the game!</h2>
+          <p>Your score: ${finalScore}</p>`;
       }, 2000);
+    } else {
+      quizContainer.innerHTML = `
+        <h2>You finished the game!</h2>
+        <p>Your score: ${finalScore}</p>
+        <p>Try again to improve your score!</p>`;
+    }
+  }
+
+  // Vérifie si le score atteint le seuil pour débloquer le code
+  function checkScoreForSecretCode() {
+    if (score === maxAttempts) {
+      endGame();
     }
   }
 
   // Gestion de la soumission de réponse
   submitAnswer.addEventListener("click", () => {
-    const userAnswer = answerInput.value.toLowerCase().trim();
-    const correctAnswer = currentTrack.name.toLowerCase().trim();
+    const userAnswer = normalizeString(answerInput.value);
+    const correctAnswer = normalizeString(currentTrack.name);
 
     if (userAnswer === correctAnswer) {
       score++;
-      scoreDisplay.textContent = `Score: ${score}`;
       alert("Correct! 🎉");
-      checkScoreForSecretCode(); // Vérifie si le score atteint 8
     } else {
       alert(`Wrong! The correct title was: ${currentTrack.name}`);
     }
 
+    scoreDisplay.textContent = `Score: ${score}/${maxAttempts}`; // Affiche le score actualisé
     answerInput.value = "";
-    loadTrack(); // Charger un nouveau morceau
+    loadTrack(); // Charger le morceau suivant
   });
 
-  loadTrack();
-  startTimer(600); // Démarrer le timer pour 10 minutes (600 secondes)
+  loadTrack(); // Charger le premier morceau
+  startTimer(timeLimit); // Démarrer le timer pour 3 minutes
 }
