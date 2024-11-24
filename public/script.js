@@ -9,19 +9,28 @@ if (access_token) {
   fetch(`/artist?access_token=${access_token}`) // Utilisation de l'endpoint /artist
     .then((response) => response.json())
     .then((tracks) => {
-      startQuiz(tracks);
+      const playableTracks = tracks.filter((track) => track.preview_url);
+      if (playableTracks.length === 0) {
+        throw new Error("No playable tracks available. Try another artist.");
+      }
+      const shuffledTracks = shuffleArray(playableTracks); // Mélanger les morceaux
+      startQuiz(shuffledTracks);
     })
     .catch((err) => {
       console.error("Failed to fetch artist tracks:", err);
-      alert("Could not load tracks. Please try again.");
+      alert(
+        "Couldn't load tracks. This might be due to limitations. Please try again later."
+      );
     });
 }
 
-let currentTrack = null;
+let currentTrackIndex = 0;
 let score = 0;
-let attempts = 0;
 const maxAttempts = 8; // Nombre total de morceaux à jouer
-const timeLimit = 180; // Limite de temps en secondes (3 minutes)
+const trackDuration = 30000; // Durée de chaque morceau en millisecondes (30 secondes)
+const timeLimit = 120; // Temps total en secondes (2 minutes)
+let globalTimer; // Pour gérer le temps global
+let trackTimer; // Pour gérer le temps d'un morceau
 
 function startQuiz(tracks) {
   const quizContainer = document.getElementById("quizContainer");
@@ -44,25 +53,35 @@ function startQuiz(tracks) {
   quizContainer.style.display = "block";
   infoMessage.textContent = "Get a score of 8 to unlock the code";
 
-  // Fonction pour normaliser les chaînes avant comparaison
-  function normalizeString(str) {
-    return str.toLowerCase().trim().replace(/[’'"]/g, ""); // Remplacer les apostrophes et guillemets
-  }
-
   // Fonction pour charger un morceau
   function loadTrack() {
-    if (attempts >= maxAttempts) {
+    if (
+      currentTrackIndex >= maxAttempts ||
+      currentTrackIndex >= tracks.length
+    ) {
       endGame();
       return;
     }
-    currentTrack = tracks[Math.floor(Math.random() * tracks.length)];
-    audioPlayer.src = currentTrack.preview_url; // Charger l'extrait audio
-    attempts++;
+
+    const currentTrack = tracks[currentTrackIndex];
+    audioPlayer.src = currentTrack.preview_url;
+    audioPlayer.play();
+    answerInput.value = ""; // Réinitialiser la réponse utilisateur
+    startTrackTimer(); // Démarrer le timer pour ce morceau
+    currentTrackIndex++;
   }
 
-  // Fonction pour mettre à jour le timer
-  function startTimer(durationInSeconds) {
-    let timeRemaining = durationInSeconds;
+  // Démarre un timer de 30 secondes pour chaque morceau
+  function startTrackTimer() {
+    clearTimeout(trackTimer);
+    trackTimer = setTimeout(() => {
+      loadTrack(); // Passe automatiquement au morceau suivant après 30 secondes
+    }, trackDuration);
+  }
+
+  // Démarre le timer global (2 minutes)
+  function startGlobalTimer() {
+    let timeRemaining = timeLimit;
 
     const updateTimer = () => {
       const minutes = Math.floor(timeRemaining / 60);
@@ -72,30 +91,32 @@ function startQuiz(tracks) {
         .padStart(2, "0")}`;
 
       if (timeRemaining === 0) {
-        clearInterval(timer);
-        endGame(); // Terminer le jeu automatiquement à la fin du temps
+        clearInterval(globalTimer);
+        endGame(); // Termine le jeu lorsque le temps global est écoulé
       }
 
       timeRemaining--;
     };
 
-    updateTimer(); // Mise à jour initiale
-    timer = setInterval(updateTimer, 1000);
+    updateTimer();
+    globalTimer = setInterval(updateTimer, 1000);
   }
 
   // Fonction pour terminer le jeu
   function endGame() {
-    clearInterval(timer); // Arrêter le timer
+    clearInterval(globalTimer);
+    clearTimeout(trackTimer);
     const finalScore = `Score: ${score}/${maxAttempts}`;
     if (score === maxAttempts) {
-      secretSound.play(); // Jouer le son
+      secretSound.play();
       secretCode.textContent = "Secret Code: 0905";
       secretCodeContainer.style.display = "block";
 
-      // Cache le code après 2 secondes
       setTimeout(() => {
         secretCodeContainer.style.display = "none";
-        alert("Congratulations! You got a perfect score!");
+        alert(
+          "Congratulations! You got a perfect score! I hope you remember the code."
+        );
         quizContainer.innerHTML = `
           <h2>You finished the game!</h2>
           <p>Your score: ${finalScore}</p>`;
@@ -108,30 +129,40 @@ function startQuiz(tracks) {
     }
   }
 
-  // Vérifie si le score atteint le seuil pour débloquer le code
-  function checkScoreForSecretCode() {
-    if (score === maxAttempts) {
-      endGame();
-    }
-  }
-
   // Gestion de la soumission de réponse
   submitAnswer.addEventListener("click", () => {
+    clearTimeout(trackTimer); // Arrêter le timer du morceau actuel
+
     const userAnswer = normalizeString(answerInput.value);
-    const correctAnswer = normalizeString(currentTrack.name);
+    const correctAnswer = normalizeString(tracks[currentTrackIndex - 1].name);
 
     if (userAnswer === correctAnswer) {
       score++;
       alert("Correct! 🎉");
     } else {
-      alert(`Wrong! The correct title was: ${currentTrack.name}`);
+      alert(
+        `Wrong! The correct title was: ${tracks[currentTrackIndex - 1].name}`
+      );
     }
 
-    scoreDisplay.textContent = `Score: ${score}/${maxAttempts}`; // Affiche le score actualisé
-    answerInput.value = "";
+    scoreDisplay.textContent = `Score: ${score}/${maxAttempts}`;
     loadTrack(); // Charger le morceau suivant
   });
 
+  // Fonction pour normaliser les chaînes avant comparaison
+  function normalizeString(str) {
+    return str.toLowerCase().trim().replace(/[’'"]/g, "");
+  }
+
   loadTrack(); // Charger le premier morceau
-  startTimer(timeLimit); // Démarrer le timer pour 3 minutes
+  startGlobalTimer(); // Démarrer le timer global
+}
+
+// Fonction pour mélanger les morceaux
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
 }
