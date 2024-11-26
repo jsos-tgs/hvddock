@@ -16,8 +16,7 @@ body {
   width: 90%;
   margin: auto;
   padding: 20px;
-  background: url("https://cdn.glitch.global/cb8e26fe-fefc-49d6-9e8b-7d903694f76e/hvddock.PNG?v=1732269490166")
-    no-repeat center center; /* Image centrée */
+  no-repeat center center; /* Image centrée */
   background-size: cover; /* L'image couvre tout le conteneur */
   border-radius: 15px; /* Coins arrondis */
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8); /* Ombre subtile */

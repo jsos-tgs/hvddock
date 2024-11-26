@@ -24,6 +24,24 @@ if (access_token) {
     });
 }
 
+// Maintenir la vidéo de fond en lecture continue
+// Script pour maintenir la vidéo en lecture continue
+const backgroundVideo = document.getElementById("backgroundVideo");
+function keepVideoPlaying() {
+  const message = '{"event":"command","func":"playVideo","args":""}';
+  backgroundVideo.contentWindow.postMessage(message, "*");
+}
+
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "visible") {
+    keepVideoPlaying();
+  }
+});
+
+document.addEventListener("click", () => {
+  keepVideoPlaying();
+});
+
 let currentTrackIndex = 0;
 let score = 0;
 const maxAttempts = 8; // Nombre total de morceaux à jouer

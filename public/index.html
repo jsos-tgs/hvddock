@@ -3,10 +3,80 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>HVDDOCK QUIZ</title>
+    <title>HVDDOCK</title>
     <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* Style pour la vidéo en arrière-plan */
+      .background-video {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: -1; /* Met la vidéo derrière tout */
+        overflow: hidden;
+      }
+
+      .background-video iframe {
+        width: 100%;
+        height: 100%;
+        pointer-events: none; /* Désactive les interactions utilisateur */
+      }
+
+      /* Style pour l'icône Spotify */
+      .spotify-follow {
+        position: fixed;
+        bottom: 50px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(0, 0, 0, 0.8); /* Fond semi-transparent */
+        padding: 10px 20px;
+        border-radius: 25px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Ombre subtile */
+      }
+
+      .spotify-follow a {
+        text-decoration: none;
+        color: #1db954; /* Couleur verte de Spotify */
+        font-size: 1rem;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+      }
+
+      .spotify-follow a:hover {
+        color: #1ed760; /* Vert plus clair pour effet hover */
+      }
+
+      .spotify-follow img {
+        width: 24px;
+        height: 24px;
+        margin-right: 8px;
+      }
+      /* Pour s'assurer que le contenu est lisible */
+      .container {
+        position: relative;
+        z-index: 5; /* Au-dessus de la vidéo */
+        color: #ffffff;
+        text-align: center;
+      }
+    </style>
   </head>
   <body>
+    <!-- Vidéo YouTube en arrière-plan -->
+    <div class="background-video">
+      <iframe
+        id="backgroundVideo"
+        src="https://www.youtube.com/embed/HOlIjKWzuy0?autoplay=1&mute=1&loop=1&playlist=HOlIjKWzuy0&enablejsapi=1"
+        frameborder="0"
+        allow="autoplay; loop; fullscreen"
+        allowfullscreen
+      ></iframe>
+    </div>
+
     <!-- Conteneur principal pour tout le contenu -->
     <div class="container">
       <h1>HVDDOCK</h1>
@@ -15,7 +85,9 @@
       <button id="loginButton">Login with Spotify</button>
 
       <!-- Message d'information -->
-      <div id="infoMessage">Get a score of 8 to unlock the code</div>
+      <div id="infoMessage">
+        Get a score of 8 to unlock the code and come on tour with me
+      </div>
 
       <!-- Conteneur du quiz -->
       <div id="quizContainer" style="display: none">
@@ -30,6 +102,20 @@
           <p id="secretCode"></p>
         </div>
       </div>
+    </div>
+
+    <!-- Icône pour suivre l'artiste sur Spotify -->
+    <div class="spotify-follow">
+      <a
+        href="https://open.spotify.com/intl-fr/artist/2VIJqCnSUPFwbtL0S6mUvT?si=g4Hg2gySTKCeXBgSLEs6iQ"
+        target="_blank"
+      >
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg"
+          alt="Spotify Icon"
+        />
+        Follow HVDDOCK on Spotify
+      </a>
     </div>
 
     <!-- Audio pour le son "C'est le H" -->
