@@ -16,10 +16,11 @@ body {
   width: 90%;
   margin: auto;
   padding: 20px;
-  no-repeat center center; /* Image centrée */
+  background: url("https://cdn.glitch.global/cb8e26fe-fefc-49d6-9e8b-7d903694f76e/hvddock.PNG?v=1732269490166")
+    no-repeat center center; /* Image centrée */
   background-size: cover; /* L'image couvre tout le conteneur */
   border-radius: 15px; /* Coins arrondis */
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8); /* Ombre subtile */
+  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.3); /* Ombre subtile */
   color: #ffffff; /* Texte blanc */
   text-align: center;
 }
@@ -28,8 +29,8 @@ body {
 h1 {
   font-size: 2.5rem;
   margin-bottom: 20px;
-  color: #d2b48c; /* Texte beige */
-  text-shadow: 0 4px 8px rgba(210, 180, 140, 0.5); /* Effet lumineux */
+  color: #f5f5f5; /* Texte blanc brillant chromé */
+  text-shadow: 0 4px 8px rgba(245, 245, 245, 0.5); /* Effet lumineux */
 }
 
 /* Boutons */
@@ -40,14 +41,19 @@ button {
   font-weight: bold;
   background: rgba(255, 255, 255, 0.2); /* Fond transparent */
   color: #ffffff; /* Texte blanc */
-  border: 1px solid #d2b48c; /* Bordure beige */
+  border: 1px solid #f5f5f5; /* Bordure blanc brillant chromé */
   border-radius: 25px;
   cursor: pointer;
   transition: background 0.3s ease, transform 0.2s ease;
 }
 
 button:hover {
-  background: rgba(210, 180, 140, 0.5); /* Fond beige transparent au survol */
+  background: rgba(
+    245,
+    245,
+    245,
+    0.5
+  ); /* Fond blanc brillant chromé au survol */
   transform: translateY(-2px); /* Léger effet de levée */
 }
 
@@ -61,7 +67,7 @@ button:active {
   background: rgba(0, 0, 0, 0.7); /* Fond semi-transparent */
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Ombre subtile */
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.3); /* Ombre subtile */
 }
 
 /* Champ de texte */
@@ -69,7 +75,7 @@ input[type="text"] {
   width: 80%;
   padding: 12px;
   margin: 10px 0;
-  border: 1px solid #d2b48c; /* Bordure beige */
+  border: 1px solid #f5f5f5; /* Bordure blanc brillant chromé */
   border-radius: 25px;
   background-color: rgba(255, 255, 255, 0.1); /* Fond transparent */
   color: #ffffff; /* Texte blanc */
@@ -82,7 +88,7 @@ input[type="text"]::placeholder {
 
 input[type="text"]:focus {
   outline: none;
-  border-color: #d2b48c; /* Bordure beige au focus */
+  border-color: #f5f5f5; /* Bordure blanc brillant chromé au focus */
 }
 
 /* Lecteur audio */
@@ -95,8 +101,8 @@ audio {
 #timer {
   font-size: 1.2rem;
   font-weight: bold;
-  color: #d2b48c; /* Texte beige */
-  text-shadow: 0 2px 4px rgba(210, 180, 140, 0.5); /* Effet lumineux */
+  color: #f5f5f5; /* Texte blanc brillant chromé */
+  text-shadow: 0 2px 4px rgba(245, 245, 245, 0.5); /* Effet lumineux */
   margin-bottom: 20px;
 }
 
@@ -112,19 +118,19 @@ audio {
   margin-top: 20px;
   padding: 15px;
   background-color: rgba(0, 0, 0, 0.8); /* Fond sombre semi-transparent */
-  color: #d2b48c; /* Texte beige */
+  color: #f5f5f5; /* Texte blanc brillant chromé */
   font-size: 1.5rem;
   font-weight: bold;
   border-radius: 10px;
   text-align: center;
-  box-shadow: 0 4px 8px rgba(210, 180, 140, 0.5); /* Effet lumineux */
+  box-shadow: 0 4px 8px rgba(245, 245, 245, 0.5); /* Effet lumineux */
 }
 
 /* Message d'information */
 #infoMessage {
   font-size: 1rem;
   font-weight: bold;
-  color: #d2b48c; /* Texte beige */
+  color: #f5f5f5; /* Texte blanc brillant chromé */
   margin-top: 20px;
   text-align: center;
 }
@@ -140,7 +146,7 @@ footer {
 }
 
 footer a {
-  color: #d2b48c; /* Lien beige */
+  color: #f5f5f5; /* Lien blanc brillant chromé */
   text-decoration: none;
 }
 
