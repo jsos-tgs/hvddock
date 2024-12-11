@@ -28,72 +28,44 @@ const audioTracks = [
     file: "https://cdn.glitch.global/cb8e26fe-fefc-49d6-9e8b-7d903694f76e/WNT.mp3?v=1733910503081",
   },
   {
-    title: "Bodies",
-    file: "https://cdn.glitch.global/f9c97d8f-d33e-4132-9fe4-f58a4057462b/GAZO%20-%20BODIES%20(Ft%20Damso)%20(Visualizer).mp3?v=1733503426438",
+    title: "c'est pas un mythe",
+    file: "https://cdn.glitch.global/cb8e26fe-fefc-49d6-9e8b-7d903694f76e/CEST%20PAS%20UN%20MYTHE.mp3?v=1733910509732",
   },
   {
-    title: "Becte",
-    file: "https://cdn.glitch.global/f9c97d8f-d33e-4132-9fe4-f58a4057462b/GAZO%20-%20BECTE%20(Visualizer).mp3?v=1733503437992",
+    title: "Tout ce qu'on fait",
+    file: "https://cdn.glitch.global/cb8e26fe-fefc-49d6-9e8b-7d903694f76e/TOUT%20CE%20QUON%20FAIT.mp3?v=1733910526837",
   },
   {
-    title: "Iluv",
-    file: "https://cdn.glitch.global/f9c97d8f-d33e-4132-9fe4-f58a4057462b/Gazo%20-%20iLUV.mp3?v=1733503452635",
+    title: "Intense",
+    file: "https://cdn.glitch.global/cb8e26fe-fefc-49d6-9e8b-7d903694f76e/INTENSE.mp3?v=1733910535059",
   },
   {
-    title: "Pop",
-    file: "https://cdn.glitch.global/f9c97d8f-d33e-4132-9fe4-f58a4057462b/Gazo%20-%20POP%20(feat.%20La%20Mano%201.9).mp3?v=1733503466587",
+    title: "Badman",
+    file: "https://cdn.glitch.global/cb8e26fe-fefc-49d6-9e8b-7d903694f76e/BADMAN.mp3?v=1733910539966",
   },
   {
-    title: "Sevice",
-    file: "https://cdn.glitch.global/f9c97d8f-d33e-4132-9fe4-f58a4057462b/Gazo%20-%20SEVICE.mp3?v=1733503474761",
+    title: "Flame",
+    file: "https://cdn.glitch.global/cb8e26fe-fefc-49d6-9e8b-7d903694f76e/FLAME.mp3?v=1733910544873",
   },
   {
-    title: "Wayans",
-    file: "https://cdn.glitch.global/f9c97d8f-d33e-4132-9fe4-f58a4057462b/Gazo%20-%20WAYANS.mp3?v=1733503485970",
+    title: "Mirage interlude",
+    file: "https://cdn.glitch.global/cb8e26fe-fefc-49d6-9e8b-7d903694f76e/MIRAGE%20INTERLUDE.mp3?v=1733910550274",
   },
   {
-    title: "Optimale",
-    file: "https://cdn.glitch.global/f9c97d8f-d33e-4132-9fe4-f58a4057462b/Gazo%20-%20OPTIMALE%20feat.%20%40orelsan.mp3?v=1733503497968",
+    title: "Ma line",
+    file: "https://cdn.glitch.global/cb8e26fe-fefc-49d6-9e8b-7d903694f76e/MA%20LINE.mp3?v=1733910555587",
   },
   {
-    title: "Fiesta",
-    file: "https://cdn.glitch.global/f9c97d8f-d33e-4132-9fe4-f58a4057462b/Gazo%20-%20FIESTA%20feat.%20%40MDLR1%20(Clip%20Officiel).mp3?v=1733503510766",
+    title: "Hier",
+    file: "https://cdn.glitch.global/cb8e26fe-fefc-49d6-9e8b-7d903694f76e/HIER.mp3?v=1733910560961",
   },
   {
-    title: "Probation",
-    file: "https://cdn.glitch.global/f9c97d8f-d33e-4132-9fe4-f58a4057462b/Gazo%20-%20PROBATION.mp3?v=1733503524969",
+    title: "Sans appel",
+    file: "https://cdn.glitch.global/cb8e26fe-fefc-49d6-9e8b-7d903694f76e/SANS%20APPEL.mp3?v=1733910571154",
   },
   {
-    title: "Birthday",
-    file: "https://cdn.glitch.global/f9c97d8f-d33e-4132-9fe4-f58a4057462b/Gazo%20-%20BIRTHDAY%20feat.%20%40jul_detp.mp3?v=1733503538288",
-  },
-  {
-    title: "Wemby",
-    file: "https://cdn.glitch.global/f9c97d8f-d33e-4132-9fe4-f58a4057462b/Gazo%20-%20WEMBY%20feat.%20%40OFFSETYRN.mp3?v=1733503548004",
-  },
-  {
-    title: "Pure codei",
-    file: "https://cdn.glitch.global/f9c97d8f-d33e-4132-9fe4-f58a4057462b/Gazo%20-%20PURE%20CODEI%20feat.%20%40yamebantu.mp3?v=1733503563555",
-  },
-  {
-    title: "Nanani nanana",
-    file: "https://cdn.glitch.global/f9c97d8f-d33e-4132-9fe4-f58a4057462b/Gazo%20-%20NANANI%20NANANA.mp3?v=1733503576601",
-  },
-  {
-    title: "Selele",
-    file: "https://cdn.glitch.global/f9c97d8f-d33e-4132-9fe4-f58a4057462b/Gazo%20-%20SELELE%20feat.%20%40fallyipupa.mp3?v=1733503594329",
-  },
-  {
-    title: "La belle et la bete",
-    file: "https://cdn.glitch.global/f9c97d8f-d33e-4132-9fe4-f58a4057462b/Gazo%20-%20LA%20BELLE%20ET%20LA%20BE%CC%82TE.mp3?v=1733503610771",
-  },
-  {
-    title: "Encore plus fort elle aime ca",
-    file: "https://cdn.glitch.global/f9c97d8f-d33e-4132-9fe4-f58a4057462b/GAZO%20-%20ENCORE%20PLUS%20FORT%20ELLE%20AIME%20C%CC%A7A.mp3?v=1733503623867",
-  },
-  {
-    title: "Toki",
-    file: "https://cdn.glitch.global/f9c97d8f-d33e-4132-9fe4-f58a4057462b/Gazo%20-%20TOKI.mp3?v=1733503636591",
+    title: "Nobody",
+    file: "https://cdn.glitch.global/cb8e26fe-fefc-49d6-9e8b-7d903694f76e/NOBODY.mp3?v=1733910574824",
   },
 ];
 let currentTrackIndex = 0;
